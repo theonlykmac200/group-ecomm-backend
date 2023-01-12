@@ -1,10 +1,10 @@
 const mongoose = require("mongoose")
 
 const CartSchema = new mongoose.Schema({
-    //fix 
-  product:{  },
-  email: { type: String, required: true },
-  quantity: { type: Number, required: true }
+    //add user schema 
+  product: [product.Schema],
+  count: { type: Number, required: true },
+  subtotal:{ type: Number, required: true }
  
 })
 
