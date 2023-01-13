@@ -49,3 +49,5 @@ module.exports = {
     create,
     show
 }
+
+// Compare this snippet from server.js:
