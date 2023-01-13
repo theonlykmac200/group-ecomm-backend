@@ -1,4 +1,4 @@
-const Product = require("../models/product")
+const Product = require("../models/Product")
 
 const index = async (req, res) => {
     try {
@@ -8,9 +8,10 @@ const index = async (req, res) => {
     }
 }
 
+
 const del = async (req, res) => {
     try {
-        res.json(await Product.findByIdAndRemove(req.params.id))
+        res.json(await Product.findByIdAndDelete(req.params.id))
     } catch (error) {
         res.status(400).json(error)
     }
