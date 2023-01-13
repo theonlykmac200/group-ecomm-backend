@@ -1,44 +1,26 @@
 // dependencies
-require("dotenv").config();
-const{PORT, DATABASE_URL} = process.env;
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-const methodOverride = require("method-override")
-const morgan = require("morgan");
-const cors = require("cors");
-const productsController = require("./controllers/products");
-// const cartController = require("./controllers/cart");
-// const usersController = require("./controllers/users");
-// const sessionsController = require("./controllers/sessions");
+const express = require("express")
+const logger = require("morgan")
+const cors = require("cors")
 
+const app = express()
 
+require("dotenv").config()
 
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true, 
-})
-const db = mongoose.connection
-    db.on("open", () => console.log("you are connected to mongodb"))
-    db.on("close", () => console.log("You are Disconnected from mongodb"))
-    db.on("error", (error) => console.log(error))
+const productRouter = require("./routes/product")
+const userRouter = require("./routes/user")
+const cartRouter = require("./routes/cart")
 
+require("./config/database")
 
-//Model
-
-
-
-// middleware
-app.use(cors())
-app.use(morgan('dev'))
+app.use(logger("dev"))
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
-app.use("/products", productsController)
-// app.use("/cart", cartController)
-// app.use("/users", usersController)
-app.use(methodOverride("_method"))
-app.use(express.static("public"))
+//Routers
+
+app.use("/product", productRouter)
+
 
 // routes IDUC
 
@@ -83,4 +65,5 @@ app.use(express.static("public"))
 
 //Listener
 
+const {PORT = 3001} = process.env
 app.listen(PORT,() => console.log(`This is the life you chose on port ${PORT}`))
