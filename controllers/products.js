@@ -26,7 +26,9 @@ const update = async (req, res) => {
     }
 }
 
+
 const create = async (req, res) => {
+    console.log(req.body)
     try {
         res.json(await Product.create(req.body))
     } catch (error) {
