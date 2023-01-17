@@ -21,6 +21,10 @@ app.use(express.urlencoded({extended: false}))
 //Routers
 
 app.use("/product", productRouter)
+app.use("/user", userRouter)
+app.use(require("./config/auth"))
+
+
 
 
 
