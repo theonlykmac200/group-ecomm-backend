@@ -1,9 +1,11 @@
 const mongoose = require("mongoose")
+const product = require("./Product")
+const user = require("./User")
 
 const CartSchema = new mongoose.Schema({
     //add user schema 
-  user: [user.Schema],
-  product: [product.Schema],
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
   count: { type: Number, required: true },
   subtotal:{ type: Number, required: true }
  
