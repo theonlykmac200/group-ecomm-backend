@@ -45,9 +45,8 @@ const update = async (req, res) => {
 const addToCart = async (req, res) => {
     try {
         const {productId, count, subtotal} = req.body;
-        const cart = new Cart({user: req.user._id, product: productId, count, subtotal});
-        await cart.save();
-        res.json(cart);
+        await Cart.findOneAndUpdate({user: req.user._id}, {$push:{items: {product: productId, count, subtotal}}});
+        res.json({message: "Item added to cart"});
     } catch (error) {
         res.status(400).json(error);
     }
@@ -60,12 +59,4 @@ module.exports = {
     update,
     addToCart
 };
-
-
-module.exports = {
-    index,
-    create,
-    del,
-    update
-}
 
